@@ -28,45 +28,45 @@ class Application():
         self.frame_2.place(relx = 0.02, rely = 0.5, relwidth = 0.96, relheight = 0.46)
 
     def widgets_frame_1(self):
-        self.bt_clear = Button(self.frame_1, text='Limpar')
+        self.bt_clear = Button(self.frame_1, text='Limpar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
         self.bt_clear.place(relx = 0.2, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_search = Button(self.frame_1, text='Buscar')
+        self.bt_search = Button(self.frame_1, text='Buscar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
         self.bt_search.place(relx = 0.3, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_new = Button(self.frame_1, text='Novo')
+        self.bt_new = Button(self.frame_1, text='Novo', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
         self.bt_new.place(relx = 0.6, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_change = Button(self.frame_1, text='Alterar')
+        self.bt_change = Button(self.frame_1, text='Alterar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
         self.bt_change.place(relx = 0.7, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_delete = Button(self.frame_1, text='Apagar')
+        self.bt_delete = Button(self.frame_1, text='Apagar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
         self.bt_delete.place(relx = 0.8, rely = 0.1, relwidth = 0.1, relheight = 0.15)
 
         # Screen Labes and Entries
         # # Code
-        self.lb_code = Label(self.frame_1, text = 'Código')
+        self.lb_code = Label(self.frame_1, text = 'Código', bg = '#dfe3ee', fg = '#107db2', font = ('Arial', 10, 'bold'))
         self.lb_code.place(relx = 0.05, rely = 0.05)
         
         self.entry_code = Entry(self.frame_1)
-        self.entry_code.place(relx = 0.05, rely = 0.15, relwidth = 0.07)
+        self.entry_code.place(relx = 0.05, rely = 0.15, relwidth = 0.085)
         
         # # Name
-        self.lb_name = Label(self.frame_1, text = 'Nome')
+        self.lb_name = Label(self.frame_1, text = 'Nome', bg = '#dfe3ee', fg = '#107db2', font = ('Arial', 10, 'bold'))
         self.lb_name.place(relx = 0.05, rely = 0.35)
         
         self.entry_name = Entry(self.frame_1)
         self.entry_name.place(relx = 0.05, rely = 0.45, relwidth = 0.85)
         
         # # Phone
-        self.lb_phone = Label(self.frame_1, text = 'Telefone')
+        self.lb_phone = Label(self.frame_1, text = 'Telefone', bg = '#dfe3ee', fg = '#107db2', font = ('Arial', 10, 'bold'))
         self.lb_phone.place(relx = 0.05, rely = 0.6)
         
         self.entry_phone = Entry(self.frame_1)
         self.entry_phone.place(relx = 0.05, rely = 0.7, relwidth = 0.4)
         
         # # City
-        self.lb_city = Label(self.frame_1, text = 'Cidade')
+        self.lb_city = Label(self.frame_1, text = 'Cidade', bg = '#dfe3ee', fg = '#107db2', font = ('Arial', 10, 'bold'))
         self.lb_city.place(relx = 0.5, rely = 0.6)
         
         self.entry_city = Entry(self.frame_1)
