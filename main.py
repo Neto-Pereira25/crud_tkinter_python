@@ -3,7 +3,14 @@ from tkinter import ttk
 
 root = Tk()
 
-class Application():
+class Functions():
+    def clean_screen(self):
+        self.entry_code.delete(0, END)
+        self.entry_name.delete(0, END)
+        self.entry_phone.delete(0, END)
+        self.entry_city.delete(0, END)
+
+class Application(Functions):
     def __init__(self):
         self.root = root
         self.window()
@@ -30,7 +37,9 @@ class Application():
         self.frame_2.place(relx = 0.02, rely = 0.5, relwidth = 0.96, relheight = 0.46)
 
     def widgets_frame_1(self):
-        self.bt_clear = Button(self.frame_1, text='Limpar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
+        self.bt_clear = Button(self.frame_1, text='Limpar',
+                            bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'),
+                            command=self.clean_screen)
         self.bt_clear.place(relx = 0.2, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
         self.bt_search = Button(self.frame_1, text='Buscar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
@@ -50,28 +59,28 @@ class Application():
         self.lb_code = Label(self.frame_1, text = 'Código', bg = '#dfe3ee', fg = '#107db2', font = ('Arial', 10, 'bold'))
         self.lb_code.place(relx = 0.05, rely = 0.05)
         
-        self.entry_code = Entry(self.frame_1)
+        self.entry_code = Entry(self.frame_1, relief = 'groove')
         self.entry_code.place(relx = 0.05, rely = 0.15, relwidth = 0.085)
         
         # # Name
         self.lb_name = Label(self.frame_1, text = 'Nome', bg = '#dfe3ee', fg = '#107db2', font = ('Arial', 10, 'bold'))
         self.lb_name.place(relx = 0.05, rely = 0.35)
         
-        self.entry_name = Entry(self.frame_1)
+        self.entry_name = Entry(self.frame_1, relief = 'groove')
         self.entry_name.place(relx = 0.05, rely = 0.45, relwidth = 0.85)
         
         # # Phone
         self.lb_phone = Label(self.frame_1, text = 'Telefone', bg = '#dfe3ee', fg = '#107db2', font = ('Arial', 10, 'bold'))
         self.lb_phone.place(relx = 0.05, rely = 0.6)
         
-        self.entry_phone = Entry(self.frame_1)
+        self.entry_phone = Entry(self.frame_1, relief = 'groove')
         self.entry_phone.place(relx = 0.05, rely = 0.7, relwidth = 0.4)
         
         # # City
         self.lb_city = Label(self.frame_1, text = 'Cidade', bg = '#dfe3ee', fg = '#107db2', font = ('Arial', 10, 'bold'))
         self.lb_city.place(relx = 0.5, rely = 0.6)
         
-        self.entry_city = Entry(self.frame_1)
+        self.entry_city = Entry(self.frame_1, relief = 'groove')
         self.entry_city.place(relx = 0.5, rely = 0.7, relwidth = 0.4)
 
     def client_list_frame_2(self):
