@@ -7,7 +7,7 @@ class Application():
         self.root = root
         self.window()
         self.screen_frames()
-        self.screen_buttons()
+        self.widgets_frame_1()
         root.mainloop()
     
     def window(self):
@@ -16,7 +16,7 @@ class Application():
         self.root.geometry('700x500+300+100')
         self.root.resizable(True, True)
         self.root.maxsize(width = 900, height = 700)
-        self.root.minsize(width = 400, height = 300)
+        self.root.minsize(width = 500, height = 400)
         
     def screen_frames(self):
         self.frame_1 = Frame(self.root, bd = 4, bg = '#dfe3ee',
@@ -27,7 +27,7 @@ class Application():
                             highlightbackground = '#759fe6', highlightthickness = 3)
         self.frame_2.place(relx = 0.02, rely = 0.5, relwidth = 0.96, relheight = 0.46)
 
-    def screen_buttons(self):
+    def widgets_frame_1(self):
         self.bt_clear = Button(self.frame_1, text='Limpar')
         self.bt_clear.place(relx = 0.2, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
@@ -42,6 +42,35 @@ class Application():
         
         self.bt_delete = Button(self.frame_1, text='Apagar')
         self.bt_delete.place(relx = 0.8, rely = 0.1, relwidth = 0.1, relheight = 0.15)
+
+        # Screen Labes and Entries
+        # # Code
+        self.lb_code = Label(self.frame_1, text = 'Código')
+        self.lb_code.place(relx = 0.05, rely = 0.05)
+        
+        self.entry_code = Entry(self.frame_1)
+        self.entry_code.place(relx = 0.05, rely = 0.15, relwidth = 0.07)
+        
+        # # Name
+        self.lb_name = Label(self.frame_1, text = 'Nome')
+        self.lb_name.place(relx = 0.05, rely = 0.35)
+        
+        self.entry_name = Entry(self.frame_1)
+        self.entry_name.place(relx = 0.05, rely = 0.45, relwidth = 0.85)
+        
+        # # Phone
+        self.lb_phone = Label(self.frame_1, text = 'Telefone')
+        self.lb_phone.place(relx = 0.05, rely = 0.6)
+        
+        self.entry_phone = Entry(self.frame_1)
+        self.entry_phone.place(relx = 0.05, rely = 0.7, relwidth = 0.4)
+        
+        # # City
+        self.lb_city = Label(self.frame_1, text = 'Cidade')
+        self.lb_city.place(relx = 0.5, rely = 0.6)
+        
+        self.entry_city = Entry(self.frame_1)
+        self.entry_city.place(relx = 0.5, rely = 0.7, relwidth = 0.4)
 
 if __name__ == "__main__":
     Application()
