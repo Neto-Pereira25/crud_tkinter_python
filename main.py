@@ -34,11 +34,15 @@ class Functions():
         self.conn.commit(); print('tabela criada')
         self.disconnect_db()
 
-    def insert_client(self):
+    def variables(self):
         self.code = self.entry_code.get()
         self.name = self.entry_name.get()
         self.phone = self.entry_phone.get()
         self.city = self.entry_city.get()
+
+    def insert_client(self):
+        
+        self.variables()
         
         self.get_connection()
         self.cursor.execute(
@@ -66,6 +70,31 @@ class Functions():
         for i in people_list:
             self.list_cli.insert("", END, values = i)
         self.disconnect_db()
+
+    def onDoubleClick(self, event):
+        self.clean_screen()
+        self.list_cli.selection()
+        
+        for n in self.list_cli.selection():
+            col1, col2, col3, col4 = self.list_cli.item(n, 'values')
+            self.entry_code.insert(END, col1)
+            self.entry_name.insert(END, col2)
+            self.entry_phone.insert(END, col3)
+            self.entry_city.insert(END, col4)
+
+    def delete_client(self):
+        self.variables()
+        self.get_connection()
+        self.cursor.execute(
+            """
+                DELETE FROM clientes WHERE id = ?
+            """,
+            (self.code)
+        )
+        self.conn.commit()
+        self.disconnect_db()
+        self.clean_screen()
+        self.select_list()
 
 class Application(Functions):
     def __init__(self):
@@ -112,7 +141,9 @@ class Application(Functions):
         self.bt_change = Button(self.frame_1, text='Alterar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
         self.bt_change.place(relx = 0.72, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_delete = Button(self.frame_1, text='Apagar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
+        self.bt_delete = Button(self.frame_1, text='Apagar', bd = 3, 
+                                bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'),
+                                command = self.delete_client)
         self.bt_delete.place(relx = 0.82, rely = 0.1, relwidth = 0.1, relheight = 0.15)
 
         # Screen Labes and Entries
@@ -163,6 +194,7 @@ class Application(Functions):
         self.scrool_bar = Scrollbar(self.frame_2, orient = 'vertical')
         self.list_cli.configure( yscroll = self.scrool_bar.set)
         self.scrool_bar.place(relx = 0.96, rely = 0.01, relwidth = 0.04, relheight = 0.85)
+        self.list_cli.bind("<Double-1>", self.onDoubleClick)
 
 if __name__ == "__main__":
     Application()
