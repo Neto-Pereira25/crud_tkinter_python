@@ -40,7 +40,7 @@ class Functions():
         self.phone = self.entry_phone.get()
         self.city = self.entry_city.get()
         
-        self.get_connection
+        self.get_connection()
         self.cursor.execute(
         """
             INSERT INTO clientes 
@@ -50,7 +50,22 @@ class Functions():
         """, (self.name, self.phone, self.city))
         self.conn.commit()
         self.disconnect_db()
-
+        self.select_list()
+        self.clean_screen()
+        
+    def select_list(self):
+        self.list_cli.delete(*self.list_cli.get_children())
+        self.get_connection()
+        people_list = self.cursor.execute(
+            """
+                SELECT id, nome, telefone, cidade FROM clientes
+                ORDER BY nome ASC;
+            """
+        )
+        
+        for i in people_list:
+            self.list_cli.insert("", END, values = i)
+        self.disconnect_db()
 
 class Application(Functions):
     def __init__(self):
@@ -60,6 +75,7 @@ class Application(Functions):
         self.widgets_frame_1()
         self.client_list_frame_2()
         self.create_tables()
+        self.select_list()
         root.mainloop()
     
     def window(self):
@@ -88,7 +104,9 @@ class Application(Functions):
         self.bt_search = Button(self.frame_1, text='Buscar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
         self.bt_search.place(relx = 0.3, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_new = Button(self.frame_1, text='Cadastrar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
+        self.bt_new = Button(self.frame_1, text='Cadastrar', 
+                            bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'),
+                            command = self.insert_client)
         self.bt_new.place(relx = 0.6, rely = 0.1, relwidth = 0.12, relheight = 0.15)
         
         self.bt_change = Button(self.frame_1, text='Alterar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
