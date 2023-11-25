@@ -34,6 +34,24 @@ class Functions():
         self.conn.commit(); print('tabela criada')
         self.disconnect_db()
 
+    def insert_client(self):
+        self.code = self.entry_code.get()
+        self.name = self.entry_name.get()
+        self.phone = self.entry_phone.get()
+        self.city = self.entry_city.get()
+        
+        self.get_connection
+        self.cursor.execute(
+        """
+            INSERT INTO clientes 
+                (nome, telefone, cidade)
+            VALUES 
+                (?, ?, ?)
+        """, (self.name, self.phone, self.city))
+        self.conn.commit()
+        self.disconnect_db()
+
+
 class Application(Functions):
     def __init__(self):
         self.root = root
@@ -70,14 +88,14 @@ class Application(Functions):
         self.bt_search = Button(self.frame_1, text='Buscar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
         self.bt_search.place(relx = 0.3, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_new = Button(self.frame_1, text='Novo', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
-        self.bt_new.place(relx = 0.6, rely = 0.1, relwidth = 0.1, relheight = 0.15)
+        self.bt_new = Button(self.frame_1, text='Cadastrar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
+        self.bt_new.place(relx = 0.6, rely = 0.1, relwidth = 0.12, relheight = 0.15)
         
         self.bt_change = Button(self.frame_1, text='Alterar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
-        self.bt_change.place(relx = 0.7, rely = 0.1, relwidth = 0.1, relheight = 0.15)
+        self.bt_change.place(relx = 0.72, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
         self.bt_delete = Button(self.frame_1, text='Apagar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
-        self.bt_delete.place(relx = 0.8, rely = 0.1, relwidth = 0.1, relheight = 0.15)
+        self.bt_delete.place(relx = 0.82, rely = 0.1, relwidth = 0.1, relheight = 0.15)
 
         # Screen Labes and Entries
         # # Code
