@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 
 root = Tk()
 
@@ -8,6 +9,7 @@ class Application():
         self.window()
         self.screen_frames()
         self.widgets_frame_1()
+        self.client_list_frame_2()
         root.mainloop()
     
     def window(self):
@@ -71,6 +73,26 @@ class Application():
         
         self.entry_city = Entry(self.frame_1)
         self.entry_city.place(relx = 0.5, rely = 0.7, relwidth = 0.4)
+
+    def client_list_frame_2(self):
+        self.list_cli = ttk.Treeview(self.frame_2, height = 3, columns = ('col1', 'col2', 'col3', 'col4'))
+        self.list_cli.heading('#0', text='')
+        self.list_cli.heading('#1', text='Código')
+        self.list_cli.heading('#2', text='Nome')
+        self.list_cli.heading('#3', text='Telefone')
+        self.list_cli.heading('#4', text='Cidade')
+        
+        self.list_cli.column('#0', width = 1)
+        self.list_cli.column('#1', width = 50)
+        self.list_cli.column('#2', width = 250)
+        self.list_cli.column('#3', width = 100)
+        self.list_cli.column('#4', width = 100)
+        
+        self.list_cli.place(relx = 0.01, rely = 0.01, relwidth = 0.95, relheight = 0.85)
+        
+        self.scrool_bar = Scrollbar(self.frame_2, orient = 'vertical')
+        self.list_cli.configure( yscroll = self.scrool_bar.set)
+        self.scrool_bar.place(relx = 0.96, rely = 0.01, relwidth = 0.04, relheight = 0.85)
 
 if __name__ == "__main__":
     Application()
