@@ -120,6 +120,7 @@ class Application(Functions):
         self.client_list_frame_2()
         self.create_tables()
         self.select_list()
+        self.menus()
         root.mainloop()
     
     def window(self):
@@ -212,6 +213,20 @@ class Application(Functions):
         self.list_cli.configure( yscroll = self.scrool_bar.set)
         self.scrool_bar.place(relx = 0.96, rely = 0.01, relwidth = 0.04, relheight = 0.85)
         self.list_cli.bind("<Double-1>", self.onDoubleClick)
+
+    def menus(self):
+        menu_bar = Menu(self.root)
+        self.root.config(menu=menu_bar)
+        filemenu1 = Menu(menu_bar)
+        filemenu2 = Menu(menu_bar)
+        
+        def quit_menu(): self.root.destroy()
+        
+        menu_bar.add_cascade(label= "Opções", menu = filemenu1)
+        menu_bar.add_cascade(label = "Sobre", menu = filemenu2)
+        
+        filemenu1.add_command(label = "Sair", command = quit_menu)
+        filemenu2.add_command(label = "Limpar Cliente", command = self.clean_screen)
 
 if __name__ == "__main__":
     Application()
