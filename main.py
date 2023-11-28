@@ -96,6 +96,21 @@ class Functions():
         self.clean_screen()
         self.select_list()
 
+    def modify_client(self):
+        self.variables()
+        self.get_connection()
+        
+        self.cursor.execute(
+            """
+                UPDATE clientes SET nome = ?, telefone = ?, cidade = ?
+                WHERE id = ?
+            """, (self.name, self.phone, self.city, self.code)
+        )
+        self.conn.commit()
+        self.disconnect_db()
+        self.select_list()
+        self.clean_screen()
+
 class Application(Functions):
     def __init__(self):
         self.root = root
@@ -138,7 +153,9 @@ class Application(Functions):
                             command = self.insert_client)
         self.bt_new.place(relx = 0.6, rely = 0.1, relwidth = 0.12, relheight = 0.15)
         
-        self.bt_change = Button(self.frame_1, text='Alterar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
+        self.bt_change = Button(self.frame_1, text='Alterar', 
+                                bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'),
+                                command = self.modify_client)
         self.bt_change.place(relx = 0.72, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
         self.bt_delete = Button(self.frame_1, text='Apagar', bd = 3, 
