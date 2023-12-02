@@ -120,7 +120,41 @@ class Functions():
         self.disconnect_db()
         self.select_list()
         self.clean_screen()
+
+    def _insert_default_client(self):
         
+        self.variables()
+        
+        self.get_connection()
+        self.cursor.execute(
+        """
+            INSERT INTO clientes 
+                (nome, telefone, cidade) 
+            VALUES
+                ('João Silva', '123456789', 'São Paulo'),
+                ('Maria Oliveira', '987654321', 'Rio de Janeiro'),
+                ('Pedro Santos', '111222333', 'Belo Horizonte'),
+                ('Ana Pereira', '444555666', 'Salvador'),
+                ('Carlos Souza', '777888999', 'Fortaleza'),
+                ('Julia Rodrigues', '111333555', 'Brasília'),
+                ('Rafaela Costa', '666333999', 'Curitiba'),
+                ('Fernando Martins', '888999111', 'Porto Alegre'),
+                ('Luciana Ferreira', '222111444', 'Recife'),
+                ('Gustavo Almeida', '999888777', 'Manaus'),
+                ('Bianca Oliveira', '123789456', 'Belém'),
+                ('Diego Santos', '789456123', 'Goiânia'),
+                ('Patrícia Lima', '456123789', 'Florianópolis'),
+                ('Marcelo Gomes', '789123456', 'Natal'),
+                ('Mariana Carvalho', '555666777', 'Vitória'),
+                ('Antônio Silva', '111222444', 'João Pessoa'),
+                ('Camila Ribeiro', '222444666', 'Aracaju'),
+                ('Luiz Pereira', '333555777', 'Cuiabá'),
+                ('Tatiane Souza', '777555333', 'Campo Grande'),
+                ('Anderson Santos', '333777555', 'Teresina');
+        """)
+        self.conn.commit()
+        self.disconnect_db()
+
     def select_list(self):
         self.list_cli.delete(*self.list_cli.get_children())
         self.get_connection()
@@ -153,7 +187,7 @@ class Functions():
             """
                 DELETE FROM clientes WHERE id = ?
             """,
-            (self.code)
+            (self.code,)
         )
         self.conn.commit()
         self.disconnect_db()
@@ -291,6 +325,7 @@ class Application(Functions, Reports):
         
         filemenu1.add_command(label = "Sair", command = quit_menu)
         filemenu1.add_command(label = "Limpar Cliente", command = self.clean_screen)
+        filemenu1.add_command(label = "Inserir Clientes Padrão", command = self._insert_default_client)
         
         filemenu2.add_command(label = "Ficha do Cliente", command = self.generateReport)
         filemenu2.add_command(label = "Todos os Cliente", command = self.generate_report_all_clients)
