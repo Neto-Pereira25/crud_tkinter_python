@@ -2,8 +2,54 @@ from tkinter import *
 from tkinter import ttk
 import sqlite3
 
+# Para gerarmos relatórios em pdf é necessário instalar a lib
+# reportlab com o comando: pip install reportlab
+# e fazer sua chamada
+# e também usar a biblioteca webbrowser
+
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.platypus import SimpleDocTemplate, Image
+import webbrowser
+
 root = Tk()
 
+class Reports():
+    def printClient(self):
+        webbrowser.open('cliente.pdf')
+    
+    def generateReport(self):
+        self.client = canvas.Canvas('client.pdf')
+        
+        self.codeReport = self.entry_code.get()
+        self.nameReport = self.entry_name.get()
+        self.phoneReport = self.entry_phone.get()
+        self.cityReport = self.entry_city.get()
+        
+        self.client.setFont('Helvetica-Bold', 24)
+        self.client.drawString(200, 790, 'Ficha do Cliente')
+        
+        self.client.setFont('Helvetica-Bold', 18)
+        self.client.drawString(50, 700, 'Codigo: ')
+        self.client.drawString(50, 670, 'Nome: ')
+        self.client.drawString(50, 640, 'Telefone: ')
+        self.client.drawString(50, 610, 'Cidade: ')
+        
+        self.client.setFont('Helvetica', 18)
+        self.client.drawString(150, 700, self.codeReport)
+        self.client.drawString(150, 670, self.nameReport)
+        self.client.drawString(150, 640, self.phoneReport)
+        self.client.drawString(150, 610, self.cityReport)
+        
+        # os parametros do rect são posição, altura, largura e borda
+        self.client.rect(20, 550, 550, 5, fill = True, stroke = False)
+        
+        self.client.showPage()
+        self.client.save()
+        self.printClient()
+        
 class Functions():
     def clean_screen(self):
         self.entry_code.delete(0, END)
@@ -111,7 +157,7 @@ class Functions():
         self.select_list()
         self.clean_screen()
 
-class Application(Functions):
+class Application(Functions, Reports):
     def __init__(self):
         self.root = root
         self.window()
@@ -223,10 +269,12 @@ class Application(Functions):
         def quit_menu(): self.root.destroy()
         
         menu_bar.add_cascade(label= "Opções", menu = filemenu1)
-        menu_bar.add_cascade(label = "Sobre", menu = filemenu2)
+        menu_bar.add_cascade(label = "Relatorios", menu = filemenu2)
         
         filemenu1.add_command(label = "Sair", command = quit_menu)
-        filemenu2.add_command(label = "Limpar Cliente", command = self.clean_screen)
+        filemenu1.add_command(label = "Limpar Cliente", command = self.clean_screen)
+        
+        filemenu2.add_command(label = "Ficha do Cliente", command = self.generateReport)
 
 if __name__ == "__main__":
     Application()
