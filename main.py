@@ -49,7 +49,25 @@ class Reports():
         self.client.showPage()
         self.client.save()
         self.printClient()
-        
+
+    def generate_report_all_clients(self):
+            self.get_connection()
+            people_list = self.cursor.execute(
+                """
+                    SELECT id, nome, telefone, cidade FROM clientes
+                    ORDER BY nome ASC;
+                """
+            )
+            
+            list_of_all_client = people_list.fetchall()
+            
+            with open('all_clients.txt', 'w', encoding='utf-8') as arquivo:
+                for i in list_of_all_client:
+                    self.codeReport, self.nameReport, self.phoneReport, self.cityReport = i
+                    client: str = f"""Codigo: {self.codeReport}\nNome: {self.nameReport}\nTelefone: {self.phoneReport}\nCidade: {self.cityReport}\n------------------------------------------------------------\n\n"""
+                    arquivo.write(client)
+            self.disconnect_db()
+
 class Functions():
     def clean_screen(self):
         self.entry_code.delete(0, END)
@@ -275,6 +293,7 @@ class Application(Functions, Reports):
         filemenu1.add_command(label = "Limpar Cliente", command = self.clean_screen)
         
         filemenu2.add_command(label = "Ficha do Cliente", command = self.generateReport)
+        filemenu2.add_command(label = "Todos os Cliente", command = self.generate_report_all_clients)
 
 if __name__ == "__main__":
     Application()
