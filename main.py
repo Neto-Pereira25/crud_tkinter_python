@@ -36,10 +36,12 @@ class Application(Functions, Reports):
     def widgets_frame_1(self):
         self.bt_clear = Button(self.frame_1, text='Limpar',
                             bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'),
-                            command=self.clean_screen)
+                            command = self.clean_screen)
         self.bt_clear.place(relx = 0.2, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_search = Button(self.frame_1, text='Buscar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
+        self.bt_search = Button(self.frame_1, text='Buscar', 
+                                bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'),
+                                command = self.find_a_client)
         self.bt_search.place(relx = 0.3, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
         self.bt_new = Button(self.frame_1, text='Cadastrar', 
