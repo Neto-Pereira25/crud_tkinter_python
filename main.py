@@ -209,6 +209,24 @@ class Functions():
         self.select_list()
         self.clean_screen()
 
+    def find_a_client(self):
+        self.get_connection()
+        
+        self.list_cli.delete(*self.list_cli.get_children())
+        self.entry_name.insert(END, '%')
+        name = self.entry_name.get()
+        self.cursor.execute(
+            """ SELECT id, nome, telefone, cidade FROM clientes 
+            WHERE nome LIKE '%s' ORDER BY nome ASC""" % name
+        )
+        find_client_name = self.cursor.fetchall()
+        
+        for i in find_client_name:
+            self.list_cli.insert("", END, values=i)
+        
+        self.clean_screen()
+        self.disconnect_db()
+
 class Application(Functions, Reports):
     def __init__(self):
         self.root = root
@@ -241,10 +259,12 @@ class Application(Functions, Reports):
     def widgets_frame_1(self):
         self.bt_clear = Button(self.frame_1, text='Limpar',
                             bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'),
-                            command=self.clean_screen)
+                            command = self.clean_screen)
         self.bt_clear.place(relx = 0.2, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
-        self.bt_search = Button(self.frame_1, text='Buscar', bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'))
+        self.bt_search = Button(self.frame_1, text='Buscar', 
+                                bd = 3, bg = '#107db2', fg = 'white', font = ('verdana', 8, 'bold'),
+                                command = self.find_a_client)
         self.bt_search.place(relx = 0.3, rely = 0.1, relwidth = 0.1, relheight = 0.15)
         
         self.bt_new = Button(self.frame_1, text='Cadastrar', 
