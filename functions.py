@@ -141,3 +141,21 @@ class Functions():
         self.disconnect_db()
         self.select_list()
         self.clean_screen()
+    
+    def find_a_client(self):
+        self.get_connection()
+
+        self.list_cli.delete(*self.list_cli.get_children())
+        self.entry_name.insert(END, '%')
+        name = self.entry_name.get()
+        self.cursor.execute(
+            """ SELECT id, nome, telefone, cidade FROM clientes 
+            WHERE nome LIKE '%s' ORDER BY nome ASC""" % name
+        )
+        find_client_name = self.cursor.fetchall()
+
+        for i in find_client_name:
+            self.list_cli.insert("", END, values=i)
+
+        self.clean_screen()
+        self.disconnect_db()
