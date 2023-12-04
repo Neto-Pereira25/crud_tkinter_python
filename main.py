@@ -123,6 +123,8 @@ class Application(Functions, Reports):
         filemenu1.add_command(label = "Sair", command = quit_menu)
         filemenu1.add_command(label = "Limpar Cliente", command = self.clean_screen)
         filemenu1.add_command(label = "Inserir Clientes Padrão", command = self._insert_default_client)
+        filemenu1.add_command(label = "Criar tabela", command = self.create_tables)
+        filemenu1.add_command(label = "Apagar Tabela", command = self.drop_table)
         
         filemenu2.add_command(label = "Ficha do Cliente", command = self.generateReport)
         filemenu2.add_command(label = "Todos os Cliente", command = self.generate_report_all_clients)
