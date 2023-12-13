@@ -264,4 +264,16 @@ class Functions():
         self.clean_screen()
         self.disconnect_db()
     
+    def delete_all_tables(self):
+        self.get_connection()
+        self.cursor.execute(
+            """ DROP TABLE IF EXISTS pedidos; """
+        )
+        self.cursor.execute(
+            """ DROP TABLE IF EXISTS produtos; """
+        )
+        self.cursor.execute(
+            """ DROP TABLE IF EXISTS clientes; """
+        )
+        self.disconnect_db()
     
