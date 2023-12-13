@@ -58,6 +58,14 @@ class Functions():
         self.conn.commit(); print('tabela criada')
         self.disconnect_db()
 
+    def drop_table(self):
+        self.get_connection()
+        
+        self.cursor.execute(""" DROP TABLE IF EXISTS clientes""")
+        self.conn.commit()
+        print('Tabela apagada com sucesso')
+        self.disconnect_db()
+
     def variables(self):
         self.code = self.entry_code.get()
         self.name = self.entry_name.get()
