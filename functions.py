@@ -277,3 +277,7 @@ class Functions():
         )
         self.disconnect_db()
     
+    def insert_all_tables(self):
+        self.create_tables()
+        self.create_table_orders()
+        self.create_table_products()
