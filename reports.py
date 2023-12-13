@@ -54,3 +54,58 @@ class Reports():
                     client: str = f"""Codigo: {self.codeReport}\nNome: {self.nameReport}\nTelefone: {self.phoneReport}\nCidade: {self.cityReport}\n------------------------------------------------------------\n\n"""
                     arquivo.write(client)
             self.disconnect_db()
+
+    def generate_report_all_cross_table_consultation(self):
+        self.get_connection()
+        join_query = self.cursor.execute(
+            """
+                SELECT 
+                    clientes.nome AS nome_cliente,
+                    produtos.nome_produto AS produto,
+                    produtos.preco AS preco_produto,
+                    pedidos.quantidade AS quantidade
+                FROM 
+                    pedidos
+                INNER JOIN 
+                    clientes ON pedidos.cliente_id = clientes.id
+                INNER JOIN 
+                    produtos ON pedidos.produto_id = produtos.id;
+            """
+        )
+        
+        list_of_all_client = join_query.fetchall()
+        # print(list_of_all_client)
+        with open('cross_table_consultation.txt', 'w', encoding='utf-8') as arquivo:
+            for i in list_of_all_client:
+                self.client_name, self.product, self.product_price, self.quantity = i
+                cross_table_consultation: str = f"""Nome: {self.client_name} | Produto: {self.product} | Preço do Produto: {self.product_price} | Quantidade do Produto: {self.quantity}\n------------------------------------------------------------\n\n"""
+                arquivo.write(cross_table_consultation)
+        self.disconnect_db()
+    
+    def generate_report_all_clients_and_products(self):
+        self.get_connection()
+        people_list = self.cursor.execute(
+            """
+                SELECT 
+                    clientes.nome AS nome_cliente,
+                    produtos.nome_produto AS nome_produto,
+                    produtos.preco AS preco_produto
+                FROM 
+                    clientes
+                INNER JOIN 
+                    pedidos ON pedidos.cliente_id = clientes.id
+                INNER JOIN 
+                    produtos ON pedidos.produto_id = produtos.id;
+            """
+        )
+        
+        list_of_all_client = people_list.fetchall()
+        
+        # print(list_of_all_client)
+        
+        with open('clients_and_products_reports.txt', 'w', encoding='utf-8') as arquivo:
+            for i in list_of_all_client:
+                self.client_name, self.product, self.product_price = i
+                cross_table_consultation: str = f"""Nome: {self.client_name} | Produto: {self.product} | Preço do Produto: {self.product_price}\n------------------------------------------------------------\n\n"""
+                arquivo.write(cross_table_consultation)
+        self.disconnect_db()

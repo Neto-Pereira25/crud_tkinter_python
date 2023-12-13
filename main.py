@@ -12,6 +12,8 @@ class Application(Functions, Reports):
         self.widgets_frame_1()
         self.client_list_frame_2()
         self.create_tables()
+        self.create_table_orders()
+        self.create_table_products()
         self.select_list()
         self.menus()
         root.mainloop()
@@ -114,18 +116,25 @@ class Application(Functions, Reports):
         self.root.config(menu=menu_bar)
         filemenu1 = Menu(menu_bar)
         filemenu2 = Menu(menu_bar)
+        filemenu3 = Menu(menu_bar)
         
         def quit_menu(): self.root.destroy()
         
         menu_bar.add_cascade(label= "Opções", menu = filemenu1)
         menu_bar.add_cascade(label = "Relatorios", menu = filemenu2)
+        menu_bar.add_cascade(label = "Operações do Banco", menu = filemenu3)
         
         filemenu1.add_command(label = "Sair", command = quit_menu)
         filemenu1.add_command(label = "Limpar Cliente", command = self.clean_screen)
-        filemenu1.add_command(label = "Inserir Clientes Padrão", command = self._insert_default_client)
         
         filemenu2.add_command(label = "Ficha do Cliente", command = self.generateReport)
         filemenu2.add_command(label = "Todos os Cliente", command = self.generate_report_all_clients)
+        filemenu2.add_command(label = "Ficha das tabelas cruzadas", command = self.generate_report_all_cross_table_consultation)
+        filemenu2.add_command(label = "Ficha dos clientes com produtos", command = self.generate_report_all_clients_and_products)
+        
+        filemenu3.add_command(label = "Inserir Clientes Padrão", command = self._insert_default_client)
+        filemenu3.add_command(label = "Inserir Pedidos Padrão", command = self._insert_default_order)
+        filemenu3.add_command(label = "Inserir Produtos Padrão", command = self._insert_default_products)
 
 if __name__ == "__main__":
     Application()
