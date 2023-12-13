@@ -136,6 +136,7 @@ class Application(Functions, Reports):
         filemenu3.add_command(label = "Inserir Pedidos Padrão", command = self._insert_default_order)
         filemenu3.add_command(label = "Inserir Produtos Padrão", command = self._insert_default_products)
         filemenu3.add_command(label = "Deletar todas as tabelas do banco", command = self.delete_all_tables)
+        filemenu3.add_command(label = "Inserir todas as tabelas do banco", command = self.insert_all_tables)
 
 if __name__ == "__main__":
     Application()
