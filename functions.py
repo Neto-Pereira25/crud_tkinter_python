@@ -30,6 +30,33 @@ class Functions():
             """)
         self.conn.commit(); print('tabela criada')
         self.disconnect_db()
+        
+    def create_table_products(self):
+        self.get_connection()
+            
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS produtos (
+            id INTEGER PRIMARY KEY,
+            nome_produto VARCHAR(100) NOT NULL,
+            preco DECIMAL(10, 2));
+            """)
+        
+        self.conn.commit(); print('tabela criada')
+        self.disconnect_db()
+
+    def create_table_orders(self):
+        self.get_connection()
+            
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS pedidos (
+                id INTEGER PRIMARY KEY,
+                cliente_id INTEGER,
+                produto_id INTEGER,
+                quantidade INTEGER,
+                FOREIGN KEY (cliente_id) REFERENCES clientes(id));
+            """)
+        self.conn.commit(); print('tabela criada')
+        self.disconnect_db()
 
     def drop_table(self):
         self.get_connection()
@@ -93,6 +120,75 @@ class Functions():
                 ('Tatiane Souza', '777555333', 'Campo Grande'),
                 ('Anderson Santos', '333777555', 'Teresina');
         """)
+        self.conn.commit()
+        self.disconnect_db()
+
+    def _insert_default_products(self):
+        self.get_connection()
+        
+        self.cursor.execute(
+            """
+            INSERT INTO produtos 
+                (nome_produto, preco) 
+            VALUES
+                ('Camisa Polo', 39.99),
+                ('Tênis Esportivo', 79.95),
+                ('Calça Jeans', 49.50),
+                ('Camiseta Básica', 15.99),
+                ('Sapatênis Casual', 59.75),
+                ('Vestido Floral', 69.99),
+                ('Jaqueta de Couro', 89.50),
+                ('Sandália Rasteira', 29.95),
+                ('Bermuda Surf', 35.25),
+                ('Blusa de Moletom', 45.99),
+                ('Óculos de Sol', 59.50),
+                ('Sapato Social', 99.99),
+                ('Saia Midi', 25.75),
+                ('Cinto de Couro', 19.95),
+                ('Pijama Conforto', 34.50),
+                ('Bolsa Tote', 49.99),
+                ('Blazer Slim', 79.75),
+                ('Colar Elegance', 29.25),
+                ('Chapéu Panamá', 39.50),
+                ('Relógio Analógico', 89.99);
+
+            """
+        )
+        
+        self.conn.commit()
+        self.disconnect_db()
+    
+    def _insert_default_order(self):
+        self.get_connection()
+        
+        self.cursor.execute(
+            """
+            INSERT INTO pedidos 
+                (cliente_id, produto_id, quantidade) 
+            VALUES
+                (1, 1, 3),
+                (2, 5, 2),
+                (3, 9, 1),
+                (4, 2, 4),
+                (5, 7, 5),
+                (1, 15, 2),
+                (2, 18, 3),
+                (3, 11, 1),
+                (4, 3, 2),
+                (5, 19, 4),
+                (1, 4, 2),
+                (2, 10, 1),
+                (3, 13, 3),
+                (4, 6, 2),
+                (5, 20, 1),
+                (1, 8, 4),
+                (2, 14, 3),
+                (3, 16, 2),
+                (4, 12, 1),
+                (5, 17, 5);
+            """
+        )
+        
         self.conn.commit()
         self.disconnect_db()
 
@@ -167,3 +263,5 @@ class Functions():
 
         self.clean_screen()
         self.disconnect_db()
+    
+    
