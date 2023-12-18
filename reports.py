@@ -109,3 +109,32 @@ class Reports():
                 cross_table_consultation: str = f"""Nome: {self.client_name} | Produto: {self.product} | Preço do Produto: {self.product_price}\n------------------------------------------------------------\n\n"""
                 arquivo.write(cross_table_consultation)
         self.disconnect_db()
+
+    def consult_request_and_associations(self):
+        self.get_connection()
+        people_list = self.cursor.execute(
+            """
+                SELECT 
+                    pedidos.id AS pedido_id,
+                    clientes.nome AS nome_cliente,
+                    produtos.nome_produto AS nome_produto,
+                    pedidos.quantidade
+                FROM 
+                    pedidos
+                LEFT JOIN 
+                    clientes ON pedidos.cliente_id = clientes.id
+                LEFT JOIN 
+                    produtos ON pedidos.produto_id = produtos.id;
+            """
+        )
+        
+        consult_list = people_list.fetchall()
+        
+        # print(consult_list)
+        
+        with open('clients_products_and_quantity_association.txt', 'w', encoding='utf-8') as arquivo:
+            for i in consult_list:
+                self.client_id, self.client_name, self.product, self.quantity = i
+                cross_table_consultation: str = f"""Codigo: {self.client_id}\nNome: {self.client_name}\nProduto: {self.product}\nQuantidade: {self.quantity}\n------------------------------------------------------------\n\n"""
+                arquivo.write(cross_table_consultation)
+        self.disconnect_db()
