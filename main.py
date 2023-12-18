@@ -131,6 +131,7 @@ class Application(Functions, Reports):
         filemenu2.add_command(label = "Todos os Cliente", command = self.generate_report_all_clients)
         filemenu2.add_command(label = "Ficha das tabelas cruzadas", command = self.generate_report_all_cross_table_consultation)
         filemenu2.add_command(label = "Ficha dos clientes com produtos", command = self.generate_report_all_clients_and_products)
+        filemenu2.add_command(label = "Consulta associada", command = self.consult_request_and_associations)
         
         filemenu3.add_command(label = "Inserir Clientes Padrão", command = self._insert_default_client)
         filemenu3.add_command(label = "Inserir Pedidos Padrão", command = self._insert_default_order)
